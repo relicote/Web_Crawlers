@@ -45,7 +45,11 @@ for i in range(len(card)):
         #adicinando o valor a tabela
     pib_per_format.append(pib_per)
 
+    
+    # print(municipio)
+    # print(pib_per_format)
 
-    print(municipio)
-    print(pib_per_format)
+    df = pd.DataFrame(list(zip(municipio, pib_per_format)),
+                    columns=['Municipio', 'PIB'])
 
+    print(df.head)
