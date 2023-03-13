@@ -20,26 +20,32 @@ driver = webdriver.Chrome(executable_path='D:/python/chromedriver', chrome_optio
 
 driver.get('https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9088-produto-interno-bruto-dos-municipios.html?=&t=pib-por-municipio')
 
+card = driver.find_elements(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/select/option')
+
 #abrindo a lista e selecionando item da lista
-driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/a/span').click() #clicando na lista
-nome_municipio = driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[2]').text  #adicionando o municipio a lista
-driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[2]').click() #acessando o municipio
+for i in range(len(card)):
+    if i == 0 or i == 1:
+        continue
+    
+    driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/a/span').click() #clicando na lista
+    nome_municipio = driver.find_element(By.XPATH, f'/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[{i}]').text  #adicionando o municipio a lista
+    driver.find_element(By.XPATH, f'/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[{i}]').click() #acessando o municipio
 
-municipio.append(nome_municipio)
+    municipio.append(nome_municipio)
 
-time.sleep(5)
-#selecionando o campo do PIB e salvando
-# driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[2]').click()
+    time.sleep(2)
+        #selecionando o campo do PIB e salvando
+        # driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[1]/div/form/div/div/div/ul/li[2]').click()
 
-#formatando o campo de valor do PIB
-pib_per = driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[2]/div[2]/div/ul/li[3]/div/p[2]').text ##NÃO ALTERA LI[]
-pib_per = pib_per.split(sep, 1)[0] #separador que deleta o ano
-pib_per = pib_per.split(sep2, 1)[0] #separador que deleta o cifrao
+        #formatando o campo de valor do PIB
+    pib_per = driver.find_element(By.XPATH, '/html/body/main/section/div[2]/div/div/section/div[13]/div[2]/div[2]/div/ul/li[3]/div/p[2]').text ##NÃO ALTERA LI[]
+    pib_per = pib_per.split(sep, 1)[0] #separador que deleta o ano
+    pib_per = pib_per.split(sep2, 1)[0] #separador que deleta o cifrao
 
-#adicinando o valor a tabela
-pib_per_format.append(pib_per)
+        #adicinando o valor a tabela
+    pib_per_format.append(pib_per)
 
 
-print(municipio)
-print(pib_per_format)
-time.sleep(10)
+    print(municipio)
+    print(pib_per_format)
+
